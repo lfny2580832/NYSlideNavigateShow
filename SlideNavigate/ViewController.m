@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "MainContainerViewController.h"
 @interface ViewController ()
 
 @end
@@ -16,12 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [button addTarget:self action:@selector(slideNavigate:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)slideNavigate:(id)sender {
+    MainContainerViewController *vc = [[MainContainerViewController alloc]initWithNibName:@"MainContainerViewController" bundle:nil];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end
