@@ -11,5 +11,4 @@
 @interface CategoryLabel : UILabel
 @property (nonatomic,assign) CGFloat scale;
 @property (nonatomic,assign) NSString *content;
-
 @end

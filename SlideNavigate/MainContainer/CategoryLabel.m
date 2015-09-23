@@ -20,8 +20,7 @@
         self.textAlignment = NSTextAlignmentCenter;
         self.font = [UIFont fontWithName:@"HYQiHei" size:15];
         self.scale = 0.0;
-        self.lineView = [[UIView alloc]initWithFrame:CGRectMake(frame.origin.x, frame.size.height - 1, 50, 1)];
-                
+        self.lineView = [[UIView alloc]init];
         [self.lineView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.lineView];
     }
@@ -34,7 +33,7 @@
     self.textColor = [UIColor colorWithRed:scale green:0.0 blue:0.0 alpha:1];
     [[self.subviews lastObject] setBackgroundColor:[UIColor colorWithRed:scale green:0.0 blue:0.0 alpha:scale]];
     //改变字体大小，缩放效果
-    CGFloat minScale = 0.99;
+    CGFloat minScale = 1;
     CGFloat trueScale = minScale + (1-minScale)*scale;
     self.transform = CGAffineTransformMakeScale(trueScale, trueScale);
 }
@@ -43,9 +42,11 @@
     self.text = content;
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.font,NSFontAttributeName, nil];
     //根据标题文字获取文字宽度
-    CGSize fontSize;
-    fontSize =[self.text sizeWithAttributes:dic];
+    CGSize fontSize =[self.text sizeWithAttributes:dic];
     CGRect frame = self.lineView.frame;
+    frame.origin.x =fabs(90 - fontSize.width)/2;
+    frame.origin.y = 39;
+    frame.size.height = 1;
     frame.size.width = fontSize.width;
     self.lineView.frame = frame;
 }

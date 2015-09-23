@@ -20,6 +20,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="KCO-ZS-r72" secondAttribute="centerY" id="TWp-hr-xBq"/>
                     <constraint firstAttribute="centerX" secondItem="KCO-ZS-r72" secondAttribute="centerX" id="hEU-Pd-AZB"/>
