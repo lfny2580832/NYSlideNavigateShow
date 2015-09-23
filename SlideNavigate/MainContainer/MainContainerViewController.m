@@ -23,7 +23,7 @@
 #pragma mark Private Methods
 //模拟数据
 - (void)simulateData{
-    self.categories = [[NSArray alloc]initWithObjects:@"男性",@"科技",@"娱乐",@"新闻",@"世界",@"地球",@"女性", nil];
+    self.categories = [[NSArray alloc]initWithObjects:@"男",@"科技",@"娱乐圈",@"吾皇万岁",@"女性",@"健身",@"iOS开发", nil];
 }
 
 //添加子视图控制器
@@ -35,7 +35,7 @@
         //循环创建子vc
         MainTableViewController *mvc = [[MainTableViewController alloc]initWithNibName:@"MainTableViewController" bundle:nil];
         mvc.title = title;
-        //传给下面的vc标识tag，根据该标示做请求，获取数据
+        //传给下面的子vc标识tag，根据该标示做请求，获取数据
         mvc.index = i;
         [self addChildViewController:mvc];
     }
@@ -49,7 +49,7 @@
         CGFloat lblX = i * lblW ;
         CategoryLabel *lbl1 = [[CategoryLabel alloc]init];
         UIViewController *vc = self.childViewControllers[i];
-        lbl1.text = vc.title;
+        lbl1.content = vc.title;
         lbl1.frame = CGRectMake(lblX, 0 , lblW, self.smallScrollView.frame.size.height);
         lbl1.font = [UIFont systemFontOfSize:15];
         lbl1.tag = i;
