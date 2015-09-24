@@ -24,9 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UINib *nib = [UINib nibWithNibName:@"MainTableViewCell" bundle:nil];
-    [self.tableView registerNib:nib
-         forCellReuseIdentifier:@"MainTableViewCell"];
     //通过标签传过来的标识，请求数据数组并加载,建议使用AFNetworking
     self.testString = [NSString stringWithFormat:@"第%ld页内容",(long)self.index];
 }
@@ -36,6 +33,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MainTableViewCell" ];
+    cell = [[[NSBundle mainBundle] loadNibNamed:@"MainTableViewCell" owner:self options:nil]lastObject];
     cell.label.text = self.testString;
     return cell;
 }

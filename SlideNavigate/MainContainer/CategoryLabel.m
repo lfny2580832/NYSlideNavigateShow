@@ -18,7 +18,8 @@
 {
     if (self=[super initWithFrame:frame]) {
         self.textAlignment = NSTextAlignmentCenter;
-        self.font = [UIFont fontWithName:@"HYQiHei" size:15];
+        self.font = [UIFont systemFontOfSize:15];
+        self.userInteractionEnabled = YES;
         self.scale = 0.0;
         self.lineView = [[UIView alloc]init];
         [self.lineView setBackgroundColor:[UIColor clearColor]];
@@ -44,10 +45,7 @@
     //根据标题文字获取文字宽度
     CGSize fontSize =[self.text sizeWithAttributes:dic];
     CGRect frame = self.lineView.frame;
-    frame.origin.x =fabs(90 - fontSize.width)/2;
-    frame.origin.y = 39;
-    frame.size.height = 1;
-    frame.size.width = fontSize.width;
+    frame = CGRectMake(fabs(90 - fontSize.width)/2, 39, fontSize.width, 1);
     self.lineView.frame = frame;
 }
 

@@ -27,23 +27,21 @@
 }
 
 //添加子视图控制器
-- (void)addChildViewController
-{
+- (void)addChildViewController{
     for(int i=0 ; i<self.categories.count; i++)
     {
         NSString *title = [self.categories objectAtIndex:i];
         //循环创建子vc
         MainTableViewController *mvc = [[MainTableViewController alloc]initWithNibName:@"MainTableViewController" bundle:nil];
         mvc.title = title;
-        //传给下面的子vc标识tag，根据该标示做请求，获取数据
+        //传给下面的子vc标识，根据该标示做请求，获取数据
         mvc.index = i;
         [self addChildViewController:mvc];
     }
 }
 
 //添加上方标签
-- (void)addNavigateLable
-{
+- (void)addNavigateLable{
     for (int i = 0; i < self.categories.count; i++) {
         CGFloat lblW = 90;
         CGFloat lblX = i * lblW ;
@@ -51,19 +49,15 @@
         UIViewController *vc = self.childViewControllers[i];
         lbl1.content = vc.title;
         lbl1.frame = CGRectMake(lblX, 0 , lblW, self.smallScrollView.frame.size.height);
-        lbl1.font = [UIFont systemFontOfSize:15];
         lbl1.tag = i;
-        lbl1.userInteractionEnabled = YES;
         [self.smallScrollView addSubview:lbl1];
         [lbl1 addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(lblClick:)]];
         self.smallScrollView.contentSize = CGSizeMake(90 * (i+1) , 0);
-        
     }
 }
 
 //标题栏label的点击事件
-- (void)lblClick:(UITapGestureRecognizer *)recognizer
-{
+- (void)lblClick:(UITapGestureRecognizer *)recognizer{
     CategoryLabel *titlelable = (CategoryLabel *)recognizer.view;
     CGFloat offsetX = titlelable.tag * self.bigScrollView.frame.size.width;
     CGFloat offsetY = self.bigScrollView.contentOffset.y;
@@ -72,8 +66,7 @@
 }
 
 //加载页面
-- (void)loadSubViews
-{
+- (void)loadSubViews{
     [self addChildViewController];
     [self addNavigateLable];
     CGFloat contentX = self.childViewControllers.count * ScreenWidth;
@@ -96,8 +89,7 @@
 
 #pragma mark - UIScrollView Delegat Methods
 //滚动结束后调用（代码导致）
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / self.bigScrollView.frame.size.width;
     // 滚动标题栏
@@ -113,6 +105,7 @@
     [self.smallScrollView setContentOffset:offset animated:YES];
     // 添加控制器
     self.NVC = self.childViewControllers[index];
+    //两页面所经过的标签setScale动画
     [self.smallScrollView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if (idx != index) {
             CategoryLabel *temlabel = self.smallScrollView.subviews[idx];
@@ -125,15 +118,8 @@
     [self.bigScrollView addSubview:self.NVC.view];
 }
 
-//滚动结束（手势导致）
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self scrollViewDidEndScrollingAnimation:scrollView];
-}
-
 //正在滚动
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     // 取出绝对值 避免最左边往右拉时形变超过1
     CGFloat value = ABS(scrollView.contentOffset.x / scrollView.frame.size.width);
     NSUInteger leftIndex = (int)value;
@@ -147,6 +133,11 @@
         CategoryLabel *labelRight = self.smallScrollView.subviews[rightIndex];
         labelRight.scale = scaleRight;
     }
+}
+
+//滚动结束（手势导致）
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 @end
