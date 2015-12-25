@@ -88,7 +88,7 @@
 }
 
 #pragma mark - UIScrollView Delegat Methods
-//滚动结束后调用（代码导致）
+//滚动结束后调用（setContentOffset代码导致）
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     // 获得索引
     NSUInteger index = scrollView.contentOffset.x / self.bigScrollView.frame.size.width;
